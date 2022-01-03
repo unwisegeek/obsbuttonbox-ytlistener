@@ -8,6 +8,7 @@ httpcore==0.14.3
 httpx==0.21.1
 hyperframe==6.0.1
 idna==3.3
+paho-mqtt==1.6.1
 pytchat==0.5.5
 requests==2.26.0
 rfc3986==1.5.0
