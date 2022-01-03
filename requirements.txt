@@ -1,0 +1,15 @@
+anyio==3.4.0
+certifi==2021.10.8
+charset-normalizer==2.0.9
+h11==0.12.0
+h2==4.1.0
+hpack==4.0.0
+httpcore==0.14.3
+httpx==0.21.1
+hyperframe==6.0.1
+idna==3.3
+pytchat==0.5.5
+requests==2.26.0
+rfc3986==1.5.0
+sniffio==1.2.0
+urllib3==1.26.7
