@@ -2,3 +2,6 @@ venv
 config.py
 
 *.pyc
+
+oauth_creds
+client_secrets.json
