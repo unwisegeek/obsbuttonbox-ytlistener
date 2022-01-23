@@ -5,6 +5,7 @@ import paho.mqtt.publish as publish
 import paho.mqtt.client as mqtt
 import sys
 from time import sleep
+import datetime
 from config import (
     MQTT_HOST,
     MQTT_PORT,
@@ -13,6 +14,7 @@ from config import (
     API_PORT,
 )
 
+poll_time = 10
 
 def mqtt_on_connect(mqttc, userdata, flags, rc):
         print(f"Connected to MQTT with result code {str(rc)}")
@@ -88,9 +90,15 @@ if chatIn.is_alive():
 else:
     mqtt_publish("None", "YouTube chat could not connect to Twitch chat. Stream not alive.")
     pass
-while chatIn.is_alive():
-    for c in chatIn.get().sync_items():
-        sleep(5)
-        mqtt_publish(c.author.name, c.message)
-        r = requests.get(f"http://{API_URL}:{API_PORT}/api/newchatmsg?author={c.author.name}&color=ffc0c0&msg={c.message}&service=YouTube")
 
+lastrun = datetime.datetime(year=1982, month=1, day=17, hour=0, minute=0, second=0)
+while chatIn.is_alive():
+    print(f"Going at {datetime.datetime.now()}")
+    for c in chatIn.get().sync_items():
+        if c.author.name == "John the Unwise Geek" and "[Twitch]" in c.message:
+            pass
+        else:
+            mqtt_publish(c.author.name, c.message)
+            r = requests.get(f"http://{API_URL}:{API_PORT}/api/newchatmsg?author={c.author.name}&color=ffc0c0&msg={c.message}&service=YouTube")
+            lastrun = datetime.datetime.now()
+    sleep(poll_time)
